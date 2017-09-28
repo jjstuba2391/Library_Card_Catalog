@@ -16,6 +16,7 @@ namespace Library_Card_Catalog
             //3. Save and Exit
             //  Re-display Menu until 'Save and Exit' is chosen.
 
+
         }
     }
     public class Book
@@ -27,6 +28,22 @@ namespace Library_Card_Catalog
     {
         //Logic goes here
         private string _filename;
-        private 
+        private string books;
+        public CardCatalog(string fileName)
+        {
+            _filename = fileName;
+        }
+        public void Listbooks()
+        {// funtion to list all books
+
+        }
+        public AddBook(string author, string title, string genre)
+        {
+            //function to add all books
+        }
+        public Save()
+        {
+            //adding to list
+        }
     }
 }
