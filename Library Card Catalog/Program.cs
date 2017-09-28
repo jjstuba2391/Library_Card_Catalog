@@ -10,7 +10,23 @@ namespace Library_Card_Catalog
     {
         static void Main(string[] args)
         {
-            //hey Jake. -Adrian
+            //When user enters filename, presented with options:
+            //1. List All Books
+            //2. Add a Book
+            //3. Save and Exit
+            //  Re-display Menu until 'Save and Exit' is chosen.
+
         }
+    }
+    public class Book
+    {
+        //Contains properties of books
+        //  Title, Author, other properties
+    }
+    public class CardCatalog
+    {
+        //Logic goes here
+        private string _filename;
+        private 
     }
 }
