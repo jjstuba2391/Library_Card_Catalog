@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 using System.Runtime.Serialization;
-  
 
 namespace Library_Card_Catalog
 {
@@ -43,27 +45,38 @@ namespace Library_Card_Catalog
                     //Returns to Main Menu
             }
             */
+            Book book1 = new Book("CodingTempleWork", "Adrian/Jake", "Non-Fiction");
 
-            
+            Stream stream = File.Open("BookData.dat", FileMode.Create);
+
+            BinaryFormatter bf = new BinaryFormatter();
+
+            bf.Serialize(stream, book1);
         }
     }
     [Serializable()] // <---attribute
-    public class Book : ISerializable // <---interface
+    class Book : ISerializable // <---interface
     {
         //Contains properties of books
         //  Title, Author, other properties
         public string Title = "";
         public string Author = "";
         public string Genre = "";
+        
+       
     
-        public Book()// <----constructor
+        public Book(SerializationInfo info, StreamingContext context)// <----constructor
         {
-
+            Title = (string)info.GetValue("", typeof(string));
+            Author = (string)info.GetValue("", typeof(string));
+            Genre = (string)info.GetValue("", typeof(string));
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-
+            info.AddValue("", Title);
+            info.AddValue("", Author);
+            info.AddValue("", Genre);
         }
       
     }
