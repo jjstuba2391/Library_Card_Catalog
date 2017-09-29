@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+  
 
 namespace Library_Card_Catalog
 {
@@ -23,29 +25,49 @@ namespace Library_Card_Catalog
 
             int selection = Convert.ToInt32(Console.ReadLine());
 
-            //switch (selection)
-            //{
-            //    case 1:
-            //        CardCatalog.ListBooks();
-            //    case 2:
-            //        CardCatalog.AddBook();
-            //    case 3:
-            //        SaveAndExit ??;
-            //    default:
-            //        Console.WriteLine("Invalid Input");
-            //        //Returns to Main Menu
-            //}
+            /*
+            switch (selection)
+            {
+                case 1:
+                    CardCatalog.ListBooks();
+                    break;
+                case 2:
+                    CardCatalog.AddBook();
+                    break;
+                case 3:
+                    SaveAndExit();
+                    break;
+                default:
+                    Console.WriteLine("Invalid Input");
+                    break;
+                    //Returns to Main Menu
+            }
+            */
 
+            
         }
     }
-    public class Book
+    [Serializable()] // <---attribute
+    public class Book : ISerializable // <---interface
     {
         //Contains properties of books
         //  Title, Author, other properties
-        private string Title = "";
-        private string Author = "";
-        private string Genre = "";
+        public string Title = "";
+        public string Author = "";
+        public string Genre = "";
+    
+        public Book()// <----constructor
+        {
+
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+
+        }
+      
     }
+
     public class CardCatalog
     {
         //Logic goes here
@@ -70,4 +92,5 @@ namespace Library_Card_Catalog
             Console.WriteLine("Book Saved"); //returns to main menu
         }
     }
+
 }
