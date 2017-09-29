@@ -23,23 +23,19 @@ namespace Library_Card_Catalog
 
             int selection = Convert.ToInt32(Console.ReadLine());
 
-            //if (selection == 1)
+            //switch (selection)
             //{
-            //    CardCatalog.Listbooks(); //Need to create this function
+            //    case 1:
+            //        CardCatalog.ListBooks();
+            //    case 2:
+            //        CardCatalog.AddBook();
+            //    case 3:
+            //        SaveAndExit ??;
+            //    default:
+            //        Console.WriteLine("Invalid Input");
+            //        //Returns to Main Menu
             //}
-            //else if (selection == 2)
-            //{
-            //    CardCatalog.AddBook(); //Need to create this function
-            //}
-            //else if (selection == 3)
-            //{
-            //    SaveAndExit??? //need to research and create this function
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Invalid Input");
-            //    //need to figure out how to return to main menu;
-            //}
+
         }
     }
     public class Book
