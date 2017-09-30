@@ -27,35 +27,26 @@ namespace Library_Card_Catalog
 
             int selection = Convert.ToInt32(Console.ReadLine());
 
-            /*
-            switch (selection)
-            {
-                case 1:
-                    CardCatalog.ListBooks();
-                    break;
-                case 2:
-                    CardCatalog.AddBook();
-                    break;
-                case 3:
-                    SaveAndExit();
-                    break;
-                default:
-                    Console.WriteLine("Invalid Input");
-                    break;
-                    //Returns to Main Menu
-            }
-            */
+            /* 
+             switch (selection)
+             {
+                 case 1:
+                     CardCatalog.ListBooks();
+                     break;
+                 case 2:
+                     CardCatalog.AddBook();
+                     break;
+                 case 3:
+                     SaveAndExit();
+                     break;
+                 default:
+                     Console.WriteLine("Invalid Input");
+                     break;
+                     //Returns to Main Menu
+             }
+             */
 
-            Book Book1 = new Book();
-            Book1.Title = "CodingTempleCatalog";
-            Book1.Author = "Adrian/Jake";
-            Book1.Genre = "Informative";
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("MyFile.bin",
-                                     FileMode.Create,
-                                     FileAccess.Write, FileShare.None);
-            formatter.Serialize(stream, Book1);
-            stream.Close();
+
 
 
             /* This is the process to Derseraialize the information back to the user, but im not sure where this is supposed to go yet. 
@@ -70,7 +61,6 @@ namespace Library_Card_Catalog
             Console.WriteLine("Genre: {0}", Book1.Genre);
           
             */
-
         }
     }
     [Serializable]
@@ -81,31 +71,42 @@ namespace Library_Card_Catalog
         public string Genre = null;
     }
 
+
+    public class CardCatalog
+    {
+        //Logic goes here
+        private string _filename;
+        private string _books;
+        public CardCatalog(string fileName)
+        {
+            _filename = fileName;
+        }
+        public void Listbooks(string books)
+        {
+            // funtion to list all books
+            _books = books;
+
+        }
+        public AddBook(string author, string title, string genre)
+        {
+            //function to add all books
+            Book Book1 = new Book();
+            Book1.Title = "CodingTempleCatalog";
+            Book1.Author = "Adrian/Jake";
+            Book1.Genre = "Informative";
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, Book1);
+            stream.Close();
+
+            Console.WriteLine("Book added"); //returns to main menu
+        }
+        public Save()
+        {
+            //adding to list
+            Console.WriteLine("Book Saved"); //returns to main menu
+        }
+    }
 }
 
-public class CardCatalog
-{
-    //Logic goes here
-    private string _filename;
-    private string _books;
-    public CardCatalog(string fileName)
-    {
-        _filename = fileName;
-    }
-    public void Listbooks()
-    {
-        // funtion to list all books
-    }
-    public AddBook(string author, string title, string genre)
-    {
-        //function to add all books
-        Console.WriteLine("Book added"); //returns to main menu
-    }
-    public Save()
-    {
-        //adding to list
-        Console.WriteLine("Book Saved"); //returns to main menu
-    }
-}
 
-}
