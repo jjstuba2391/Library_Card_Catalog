@@ -45,40 +45,31 @@ namespace Library_Card_Catalog
                     //Returns to Main Menu
             }
             */
-            Book book1 = new Book("CodingTempleWork", "Adrian/Jake", "Non-Fiction");
 
-            Stream stream = File.Open("BookData.dat", FileMode.Create);
+            Book Book1 = new Book();
+            Book1.Title = "CodingTempleCatalog";
+            Book1.Author = "Adrian/Jake";
+            Book1.Genre = "Informative";
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("MyFile.bin",
+                                     FileMode.Create,
+                                     FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, Book1);
+            stream.Close();
 
-            BinaryFormatter bf = new BinaryFormatter();
 
-            bf.Serialize(stream, book1);
+
+            
         }
     }
-    [Serializable()] // <---attribute
-    class Book : ISerializable // <---interface
+    [Serializable]
+    public class Book
     {
-        //Contains properties of books
-        //  Title, Author, other properties
-        public string Title = "";
-        public string Author = "";
-        public string Genre = "";
-        
+        public string Title = null;
+        public string Author = null;
+        public string Genre = null;
+    }
        
-    
-        public Book(SerializationInfo info, StreamingContext context)// <----constructor
-        {
-            Title = (string)info.GetValue("", typeof(string));
-            Author = (string)info.GetValue("", typeof(string));
-            Genre = (string)info.GetValue("", typeof(string));
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("", Title);
-            info.AddValue("", Author);
-            info.AddValue("", Genre);
-        }
-      
     }
 
     public class CardCatalog
