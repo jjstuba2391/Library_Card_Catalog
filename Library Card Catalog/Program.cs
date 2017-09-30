@@ -27,7 +27,7 @@ namespace Library_Card_Catalog
 
             int selection = Convert.ToInt32(Console.ReadLine());
 
-            /* 
+            /*
              switch (selection)
              {
                  case 1:
@@ -44,23 +44,9 @@ namespace Library_Card_Catalog
                      break;
                      //Returns to Main Menu
              }
-             */
+           */  
 
-
-
-
-            /* This is the process to Derseraialize the information back to the user, but im not sure where this is supposed to go yet. 
-             * 
-            IFormatter formatter = new BinaryFormatter();  
-            Stream stream = new FileStream("MyFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read);  
-            Book Book1 = (Book) formatter.Deserialize(stream);  
-            stream.Close();  
-             
-            Console.WriteLine("Title: {0}", Book1.Title);  
-            Console.WriteLine("Author: {0}", Book1.Author);  
-            Console.WriteLine("Genre: {0}", Book1.Genre);
-          
-            */
+           
         }
     }
     [Serializable]
@@ -85,6 +71,15 @@ namespace Library_Card_Catalog
         {
             // funtion to list all books
             _books = books;
+
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("MyFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+            Book Book1 = (Book)formatter.Deserialize(stream);
+            stream.Close();
+
+            Console.WriteLine("Title: {0}", Book1.Title);
+            Console.WriteLine("Author: {0}", Book1.Author);
+            Console.WriteLine("Genre: {0}", Book1.Genre);
 
         }
         public AddBook(string author, string title, string genre)
