@@ -23,12 +23,12 @@ namespace Library_Card_Catalog
                 Console.WriteLine("2 - Add a book");
                 Console.WriteLine("3 - Save and Exit");
 
-                PromptForNumber();
+                selection = Convert.ToInt32(Console.ReadLine());
 
                 switch (selection)
                 {
                     case 1:
-                        CardCatalog.ListBooks();
+                        //CardCatalog.ListBooks();
                         break;
 
                     case 2:
@@ -53,19 +53,6 @@ namespace Library_Card_Catalog
 
                 }
             }
-        }
-        private static int PromptForNumber(string promptString = "Enter a number: ")
-        {
-            int selection = 0;
-            string input = "";
-
-            while (!int.TryParse(input, out selection))
-            {
-                Console.WriteLine(promptString);
-                input = Console.ReadLine();
-            }
-
-            return selection;
         }
     }
 }

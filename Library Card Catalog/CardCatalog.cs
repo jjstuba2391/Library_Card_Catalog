@@ -20,7 +20,7 @@ namespace Library_Card_Catalog
         {
             _filename = fileName;
         }
-        public static void Listbooks()
+        public void Listbooks()
         {
 
             IFormatter formatter = new BinaryFormatter();
