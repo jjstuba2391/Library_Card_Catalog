@@ -14,37 +14,46 @@ namespace Library_Card_Catalog
     {
         static void Main(string[] args)
         {
-            //When user enters filename, presented with options:
-            //1. List All Books
-            //2. Add a Book
-            //3. Save and Exit
-            //  Re-display Menu until 'Save and Exit' is chosen.
-            Console.WriteLine("Welcome to the our Library!\n");
-            Console.WriteLine("What would you like to do?");
-            Console.WriteLine("1 - List all books");
-            Console.WriteLine("2 - Add a book");
-            Console.WriteLine("3 - Save and Exit");
+            int selection = 0;
+            while (selection != 3)
+            {
+                Console.WriteLine("Welcome to the our Library!\n");
+                Console.WriteLine("What would you like to do?");
+                Console.WriteLine("1 - List all books");
+                Console.WriteLine("2 - Add a book");
+                Console.WriteLine("3 - Save and Exit");
 
-            int selection = Convert.ToInt32(Console.ReadLine());
+                selection = Convert.ToInt32(Console.ReadLine());
 
-            /*
-             switch (selection)
-             {
-                 case 1:
-                     CardCatalog.ListBooks();
-                     break;
-                 case 2:
-                     CardCatalog.AddBook();
-                     break;
-                 case 3:
-                     SaveAndExit();
-                     break;
-                 default:
-                     Console.WriteLine("Invalid Input");
-                     break;
-                     //Returns to Main Menu
-             }
-           */  
+                switch (selection)
+                {
+                    case 1:
+                        // CardCatalog.ListBooks();
+                        break;
+
+                    case 2:
+                        Console.WriteLine("Enter Title of New Book");
+                        string title = Console.ReadLine();
+
+                        Console.WriteLine("Enter Author of '{0}'", title);
+                        string author = Console.ReadLine();
+
+                        Console.WriteLine("Enter Genre of '{0}'", title);
+                        string genre = Console.ReadLine();
+
+                        CardCatalog.AddBook(title, author, genre);
+                        break;
+                    case 3:
+                        CardCatalog.SaveAndExit();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Input. Restarting Program.");
+                        Console.WriteLine("************************************\n");
+                        break;
+
+                }
+            }
+           
 
            
         }
@@ -88,25 +97,22 @@ namespace Library_Card_Catalog
         {
             _filename = fileName;
         }
-        public void Listbooks(string books)
+        public static void Listbooks()
         {
-            // funtion to list all books
-            _books = books;
 
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("MyFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-            Book Book1 = (Book)formatter.Deserialize(stream);
+            Book book1 = (Book)formatter.Deserialize(stream);
             stream.Close();
 
-            Console.WriteLine("Title: {0}", Book1.Title);
-            Console.WriteLine("Author: {0}", Book1.Author);
-            Console.WriteLine("Genre: {0}", Book1.Genre);
+            Console.WriteLine("Title: {0}", book1.Title);
+            Console.WriteLine("Author: {0}", book1.Author);
+            Console.WriteLine("Genre: {0}", book1.Genre);
 
         }
-        public AddBook(string author, string title, string genre)
+        public static void AddBook(string title, string author, string genre)
         {
-            //function to add all books
-            Book book1 = new Book("CTCatalog", "Adrian/Jake", "Educational");
+            Book book1 = new Book(title, author, genre);
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
             formatter.Serialize(stream, book1);
@@ -114,10 +120,10 @@ namespace Library_Card_Catalog
 
             Console.WriteLine("Book added"); //returns to main menu
         }
-        public Save()
+        public static void SaveAndExit()
         {
             //adding to list
-            Console.WriteLine("Book Saved"); //returns to main menu
+            Console.WriteLine("Book Saved. Good Bye!");
         }
     }
 }
