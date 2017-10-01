@@ -49,12 +49,33 @@ namespace Library_Card_Catalog
            
         }
     }
-    [Serializable]
-    public class Book
+    [Serializable()]
+    public class Book : ISerializable
     {
-        public string Title = null;
-        public string Author = null;
-        public string Genre = null;
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Genre { get; set; }
+
+        public Book(string title, string author, string genre)
+        {
+            Title = title;
+            Author = author;
+            Genre = genre;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Title", Title);
+            info.AddValue("Author", Author);
+            info.AddValue("Genre", Genre);
+        }
+
+        public Book(SerializationInfo info, StreamingContext context)
+        {
+            Title = (string)info.GetValue("Title", typeof(string));
+            Author = (string)info.GetValue("Author", typeof(string));
+            Genre = (string)info.GetValue("Genre", typeof(string));
+        }
     }
 
 
@@ -85,13 +106,10 @@ namespace Library_Card_Catalog
         public AddBook(string author, string title, string genre)
         {
             //function to add all books
-            Book Book1 = new Book();
-            Book1.Title = "CodingTempleCatalog";
-            Book1.Author = "Adrian/Jake";
-            Book1.Genre = "Informative";
+            Book book1 = new Book("CTCatalog", "Adrian/Jake", "Educational");
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            formatter.Serialize(stream, Book1);
+            formatter.Serialize(stream, book1);
             stream.Close();
 
             Console.WriteLine("Book added"); //returns to main menu
