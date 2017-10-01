@@ -13,35 +13,46 @@ namespace Library_Card_Catalog
 
     public class CardCatalog
     {
-        //Logic goes here
+        public static List<Book> booklist = new List<Book>();
         private string _filename;
-        private string _books;
+        //private string _books;
         public CardCatalog(string fileName)
         {
             _filename = fileName;
         }
-        public void Listbooks()
-        {
-
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("MyFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-            Book book = (Book)formatter.Deserialize(stream);
-            stream.Close();
-
-            Console.WriteLine("Title: {0}", book.Title);
-            Console.WriteLine("Author: {0}", book.Author);
-            Console.WriteLine("Genre: {0}", book.Genre);
-
-        }
         public static void AddBook(string title, string author, string genre)
         {
-            Book book = new Book(title, author, genre);
+
+            Book entry = new Book(title, author, genre);
+            booklist.Add(entry);
+
+            //Serializer
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            formatter.Serialize(stream, book);
+            formatter.Serialize(stream, booklist);
             stream.Close();
 
-            Console.WriteLine("Book added"); //returns to main menu
+            Console.WriteLine("Book added.\n"); //returns to main menu
+        }
+        public static void ListBooks()
+        {
+            Console.WriteLine("\nBooks Listed:");
+            //Deserializer
+            using (Stream stream = File.Open("MyFile.bin", FileMode.Open))
+            {
+                BinaryFormatter bin = new BinaryFormatter();
+                var booklist = (List<Book>)bin.Deserialize(stream);
+
+                foreach (Book entry in booklist)
+                {
+                    Console.WriteLine("\n{0}, by {1}. Genre: {2}\n",
+                        entry.Title,
+                        entry.Author,
+                        entry.Genre);
+                }
+
+            }
+            Console.WriteLine("No More Entries.\nReturning to Menu...");
         }
         public static void SaveAndExit()
         {
