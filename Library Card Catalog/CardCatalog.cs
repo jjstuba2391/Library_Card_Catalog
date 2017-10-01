@@ -26,13 +26,7 @@ namespace Library_Card_Catalog
             Book entry = new Book(title, author, genre);
             booklist.Add(entry);
 
-            //Serializer
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            formatter.Serialize(stream, booklist);
-            stream.Close();
-
-            Console.WriteLine("Book added.\n"); //returns to main menu
+            Console.WriteLine("Book added. Restart application to see changes!\n"); //returns to main menu
         }
         public static void ListBooks()
         {
@@ -56,8 +50,12 @@ namespace Library_Card_Catalog
         }
         public static void SaveAndExit()
         {
-            //adding to list
-            Console.WriteLine("Book Saved. Good Bye!");
+            //Serializer
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, booklist);
+            stream.Close();
+            Console.WriteLine("Book(s) Saved. Good Bye!");
         }
     }
 }
