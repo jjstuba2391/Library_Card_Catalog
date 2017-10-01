@@ -52,78 +52,7 @@ namespace Library_Card_Catalog
                         break;
 
                 }
-            }
-           
-
-           
-        }
-    }
-    [Serializable()]
-    public class Book : ISerializable
-    {
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public string Genre { get; set; }
-
-        public Book(string title, string author, string genre)
-        {
-            Title = title;
-            Author = author;
-            Genre = genre;
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("Title", Title);
-            info.AddValue("Author", Author);
-            info.AddValue("Genre", Genre);
-        }
-
-        public Book(SerializationInfo info, StreamingContext context)
-        {
-            Title = (string)info.GetValue("Title", typeof(string));
-            Author = (string)info.GetValue("Author", typeof(string));
-            Genre = (string)info.GetValue("Genre", typeof(string));
-        }
-    }
-
-
-    public class CardCatalog
-    {
-        //Logic goes here
-        private string _filename;
-        private string _books;
-        public CardCatalog(string fileName)
-        {
-            _filename = fileName;
-        }
-        public static void Listbooks()
-        {
-
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("MyFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-            Book book1 = (Book)formatter.Deserialize(stream);
-            stream.Close();
-
-            Console.WriteLine("Title: {0}", book1.Title);
-            Console.WriteLine("Author: {0}", book1.Author);
-            Console.WriteLine("Genre: {0}", book1.Genre);
-
-        }
-        public static void AddBook(string title, string author, string genre)
-        {
-            Book book1 = new Book(title, author, genre);
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            formatter.Serialize(stream, book1);
-            stream.Close();
-
-            Console.WriteLine("Book added"); //returns to main menu
-        }
-        public static void SaveAndExit()
-        {
-            //adding to list
-            Console.WriteLine("Book Saved. Good Bye!");
+            }    
         }
     }
 }
