@@ -56,6 +56,7 @@ namespace Library_Card_Catalog
             formatter.Serialize(stream, booklist);
             stream.Close();
             Console.WriteLine("Book(s) Saved. Good Bye!");
+            Console.ReadLine();
         }
     }
 }
