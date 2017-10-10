@@ -8,41 +8,39 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
-//Problem:
-//Currently Add A Book function serializes the objects
-//which clears the list of the last entries.
-//However the program works!
-
-//Future Potential:
-//List books by genre
-//Add additional parameters: year, ISBN, language, etc.
-
 namespace Library_Card_Catalog
 {
     class Program
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Enter File Name: ");
+            string fileName = Console.ReadLine();
+            CardCatalog cc = new CardCatalog(fileName);
+
             string selection = "0";
             while (selection != "3")
             {
+                Console.Clear();
                 Console.WriteLine("\n****************************");
                 Console.WriteLine("Welcome to the our Library!");
                 Console.WriteLine("****************************\n");
                 Console.WriteLine("What would you like to do?");
-                Console.WriteLine("1 - List all books");
-                Console.WriteLine("2 - Add a book");
-                Console.WriteLine("3 - Save and Exit");
+                Console.WriteLine("\t1 - List all books");
+                Console.WriteLine("\t2 - Add a book");
+                Console.WriteLine("\t3 - Save and Exit");
 
                 selection = Console.ReadLine();
 
                 switch (selection)
                 {
                     case "1":
-                        CardCatalog.ListBooks();
+                        cc.ListBooks();
                         break;
 
                     case "2":
+                        Console.Clear();
                         Console.WriteLine("Enter Title of New Book");
                         string title = Console.ReadLine();
 
@@ -52,10 +50,13 @@ namespace Library_Card_Catalog
                         Console.WriteLine("Enter Genre of '{0}'", title);
                         string genre = Console.ReadLine();
 
-                        CardCatalog.AddBook(title, author, genre);
+                        cc.AddBook(title, author, genre);
+                        Console.Clear();
+                        Console.WriteLine("Book Added. Press any key to continue...");
                         break;
+
                     case "3":
-                        CardCatalog.SaveAndExit();
+                        cc.SaveAndExit();
                         break;
                     default:
                         Console.WriteLine("Invalid Input. Restarting Program.");

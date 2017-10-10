@@ -11,12 +11,13 @@ using System.Runtime.Serialization;
 namespace Library_Card_Catalog
 {
     [Serializable()]
-    public class Book : ISerializable
+    public class Book
     {
         public string Title { get; set; }
         public string Author { get; set; }
         public string Genre { get; set; }
 
+        /*
         public Book(string title, string author, string genre)
         {
             Title = title;
@@ -37,5 +38,6 @@ namespace Library_Card_Catalog
             Author = (string)info.GetValue("Author", typeof(string));
             Genre = (string)info.GetValue("Genre", typeof(string));
         }
+        */
     }
 }

@@ -13,22 +13,34 @@ namespace Library_Card_Catalog
 
     public class CardCatalog
     {
-        public static List<Book> booklist = new List<Book>();
+        private List<Book> books;
         private string _filename;
-        //private string _books;
+
         public CardCatalog(string fileName)
         {
             _filename = fileName;
+            if (File.Exists(fileName))
+            {
+                Stream stream = new FileStream(_filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+                IFormatter formatter = new BinaryFormatter();
+                books = (List<Book>)formatter.Deserialize(stream);
+            }
+            else
+            {
+                books = new List<Book>();
+            }
         }
-        public static void AddBook(string title, string author, string genre)
+        public void AddBook(string title, string author, string genre)
         {
-
-            Book entry = new Book(title, author, genre);
-            booklist.Add(entry);
-
-            Console.WriteLine("Book added. Restart application to see changes!\n"); //returns to main menu
+            Book newBook = new Book
+            {
+                Title = title,
+                Author = author,
+                Genre = genre
+            };
+        books.Add(newBook);
         }
-        public static void ListBooks()
+        public void ListBooks()
         {
             Console.WriteLine("\nBooks Listed:");
             //Deserializer
@@ -48,13 +60,14 @@ namespace Library_Card_Catalog
             }
             Console.WriteLine("No More Entries.\nReturning to Menu...");
         }
-        public static void SaveAndExit()
+        public void SaveAndExit()
         {
             //Serializer
+            Stream stream = new FileStream(this._filename, FileMode.Create, FileAccess.Write, FileShare.None);
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            formatter.Serialize(stream, booklist);
+            formatter.Serialize(stream, this.books);         
             stream.Close();
+            stream.Dispose();
             Console.WriteLine("Book(s) Saved. Good Bye!");
             Console.ReadLine();
         }
