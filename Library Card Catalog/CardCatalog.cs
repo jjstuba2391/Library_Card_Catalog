@@ -44,7 +44,7 @@ namespace Library_Card_Catalog
                         entry.Author,
                         entry.Genre);
                 }
-
+                stream.Close();
             }
             Console.WriteLine("No More Entries.\nReturning to Menu...");
         }
